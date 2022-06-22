@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+  <head>
+    <title>Deck of Cards</title>
+
+  <style>
+    #card-deck {
+      border: 2px solid;
+      border-color: black;
+      ;
+    }
+  </style>
+  </head>
+
+<body>
+<canvas id="card-deck" width="150" height="250"> 
+</canvas>
+<br>
+<input id ="newCard" type="button" value='New card'></input>
+  
+<script>
+  let cards = document.getElementById("card-deck");
+  let ctx = cards.getContext("2d");
+  ctx.font = "50px arial";
+
+  let cardNumbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']; 
+  let suits = ['♠', '♥', '♣', '♦']; 
+
+
+  function cardSelector() {
+  ctx.clearRect(0, 0, cards.width, cards.height); // Clears the canvas of the previous card.
+  let cardPicked = cardNumbers[Math.floor(Math.random() * cardNumbers.length)]; // Picks a random card number.
+  let suitPicked = suits[Math.floor(Math.random() * suits.length)]; // Picks a random suit.
+  // Below if statements dictate the card colour based on suit.
+  if (suitPicked === '♥' || suitPicked === '♦') {
+    ctx.fillStyle = 'red';
+  }
+  else {
+    ctx.fillStyle = 'black';
+  }
+
+
+  
+  ctx.fillText(cardPicked + suitPicked, 5, 50); // This positions the card number and suit in the top left corner.
+  
+  // Below if statements set the positioning of the bottom right suit and card number.
+  if (cardPicked === 10 && (suitPicked = '♣' || suitPicked === '♥')) {
+    ctx.fillText(cardPicked + suitPicked, 60, 240);
+  }
+
+  else if (cardPicked === 10 && (suitPicked = '♦' || suitPicked === '♠')) {
+    ctx.fillText(cardPicked + suitPicked, 60, 240);
+
+  }
+  else if ((cardPicked === 'Q' || cardPicked === 'K' || cardPicked === 'A') && (suitPicked === '♣'  || suitPicked === '♥')) {
+    ctx.fillText(cardPicked + suitPicked, 78, 240);
+  }
+  else if (cardPicked === 'Q' || cardPicked === 'K' || cardPicked === 'A') {
+    ctx.fillText(cardPicked + suitPicked, 85, 240);
+  }
+ 
+  else if (suitPicked === '♣' || suitPicked === '♥') {
+    ctx.fillText(cardPicked + suitPicked, 87, 240);
+  }
+  else {
+    ctx.fillText(cardPicked + suitPicked, 90, 240);
+  }
+  
+  // The below if statement adds the suit in the middle of the card. Exact positioning is based on suit type.
+  if (suitPicked === '♣' || suitPicked === '♥') {
+    ctx.fillText(suitPicked, 59, 137);
+  }
+  else {
+    ctx.fillText(suitPicked, 60, 135);
+  }
+}
+
+window.addEventListener('load', cardSelector); // Event listener on load to start with a random card chosen.
+const newCardBtn = document.getElementById('newCard'); // Variable declared and set equal to the newCard button.
+newCardBtn.addEventListener('click', cardSelector); // Event listener on new card button to run the random card selector function.
+
+
+</script>  
+</body>
+
+</html>
